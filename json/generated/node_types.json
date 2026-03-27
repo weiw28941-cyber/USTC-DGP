@@ -1,0 +1,1420 @@
+{
+  "nodeTypes": [
+    {
+      "category": "Data",
+      "color": "#3182ce",
+      "description": "Union of colored points/lines/faces and textured mesh",
+      "id": "geometry",
+      "inputs": [
+        {
+          "customType": "geometry",
+          "id": "geometry",
+          "label": "Geometry",
+          "type": "custom"
+        },
+        {
+          "customType": "points",
+          "id": "points",
+          "label": "Points",
+          "type": "custom"
+        },
+        {
+          "customType": "lines",
+          "id": "lines",
+          "label": "Lines",
+          "type": "custom"
+        },
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        },
+        {
+          "id": "points_color",
+          "label": "Points Color",
+          "type": "vector"
+        },
+        {
+          "id": "lines_color",
+          "label": "Lines Color",
+          "type": "vector"
+        },
+        {
+          "id": "faces_color",
+          "label": "Faces Color",
+          "type": "vector"
+        }
+      ],
+      "name": "Geometry",
+      "outputs": [
+        {
+          "customType": "geometry",
+          "id": "geometry",
+          "label": "Geometry",
+          "type": "custom"
+        }
+      ],
+      "properties": {
+        "linesCount": {
+          "default": 1,
+          "description": "Number of line-set inputs exposed.",
+          "editable": true,
+          "editor": "number",
+          "type": "number"
+        },
+        "meshCount": {
+          "default": 1,
+          "description": "Number of mesh inputs exposed.",
+          "editable": true,
+          "editor": "number",
+          "type": "number"
+        },
+        "pointsCount": {
+          "default": 1,
+          "description": "Number of point cloud inputs exposed.",
+          "editable": true,
+          "editor": "number",
+          "type": "number"
+        },
+        "values": {
+          "default": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "description": "Input bucket counts for points, lines, and meshes.",
+          "editable": true,
+          "editor": "text",
+          "type": "array"
+        }
+      }
+    },
+    {
+      "category": "Interaction",
+      "color": "#2f855a",
+      "description": "Render geometry object with points/lines/triangles in one pass",
+      "id": "geometry_viewer",
+      "inputs": [
+        {
+          "customType": "geometry",
+          "id": "geometry",
+          "label": "Geometry",
+          "type": "custom"
+        },
+        {
+          "id": "light",
+          "label": "Light Dir",
+          "type": "vector"
+        },
+        {
+          "id": "intensity",
+          "label": "Intensity",
+          "type": "number"
+        }
+      ],
+      "name": "Geometry Viewer",
+      "outputs": [
+        {
+          "customType": "geometry_view_payload",
+          "id": "view",
+          "label": "View",
+          "type": "custom"
+        },
+        {
+          "id": "interaction",
+          "label": "Interaction",
+          "type": "map"
+        },
+        {
+          "id": "ok",
+          "label": "OK",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "intensity": {
+          "default": 1.2,
+          "description": "Fallback light intensity used by the geometry viewer.",
+          "editable": true,
+          "editor": "number",
+          "type": "number"
+        },
+        "interaction_event": {
+          "default": {},
+          "description": "Most recent normalized viewer interaction event.",
+          "editable": false,
+          "editor": "readonly",
+          "type": "object"
+        },
+        "light": {
+          "default": [
+            0.45,
+            0.75,
+            0.55
+          ],
+          "description": "Fallback light direction used when no light socket is connected.",
+          "editable": true,
+          "editor": "text",
+          "type": "array"
+        }
+      }
+    },
+    {
+      "category": "Interaction",
+      "color": "#2f855a",
+      "description": "Unified interaction bridge for mesh edit, vector field, camera, lighting, and custom channels.",
+      "id": "interaction_state",
+      "inputs": [
+        {
+          "id": "event",
+          "label": "Event",
+          "type": "map"
+        }
+      ],
+      "name": "Interaction State",
+      "outputs": [
+        {
+          "id": "state",
+          "label": "State",
+          "type": "map"
+        },
+        {
+          "id": "event",
+          "label": "Event",
+          "type": "map"
+        },
+        {
+          "id": "payload",
+          "label": "Payload",
+          "type": "map"
+        },
+        {
+          "id": "committed",
+          "label": "Committed",
+          "type": "map"
+        },
+        {
+          "id": "transient",
+          "label": "Transient",
+          "type": "map"
+        },
+        {
+          "id": "channel_state",
+          "label": "Channel State",
+          "type": "map"
+        },
+        {
+          "id": "channel",
+          "label": "Channel",
+          "type": "string"
+        },
+        {
+          "id": "phase",
+          "label": "Phase",
+          "type": "string"
+        },
+        {
+          "id": "phaseMatched",
+          "label": "Phase Matched",
+          "type": "number"
+        },
+        {
+          "id": "target",
+          "label": "Target",
+          "type": "number"
+        },
+        {
+          "id": "version",
+          "label": "Version",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "channel": {
+          "default": "all",
+          "description": "Select which interaction channel this node exposes.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "all",
+            "mesh_edit",
+            "vector_field",
+            "camera",
+            "lighting",
+            "custom"
+          ],
+          "type": "string"
+        },
+        "custom_channel": {
+          "default": "",
+          "description": "Custom channel name used when channel=custom.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        },
+        "interaction_event": {
+          "default": {},
+          "description": "Most recent normalized interaction event routed into this node.",
+          "editable": false,
+          "editor": "readonly",
+          "type": "object"
+        },
+        "interaction_state": {
+          "default": {},
+          "description": "Internal accumulated interaction state snapshot.",
+          "editable": false,
+          "editor": "readonly",
+          "type": "object"
+        },
+        "phase_filter": {
+          "default": "all",
+          "description": "Filter emitted interaction events by lifecycle phase.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "all",
+            "begin",
+            "update",
+            "commit",
+            "cancel"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Apply sparse handle constraints to mesh vertices using iterative laplacian smoothing.",
+      "id": "laplacian_deform",
+      "inputs": [
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        },
+        {
+          "id": "event",
+          "label": "Event",
+          "type": "map"
+        },
+        {
+          "id": "payload",
+          "label": "Payload",
+          "type": "map"
+        }
+      ],
+      "name": "Laplacian Deform",
+      "outputs": [
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        },
+        {
+          "id": "moved",
+          "label": "Moved",
+          "type": "number"
+        },
+        {
+          "id": "handles",
+          "label": "Handles",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "interaction_event": {
+          "default": {},
+          "description": "Latest cached interaction event used as offline fallback.",
+          "editable": false,
+          "editor": "readonly",
+          "type": "object"
+        },
+        "iterations": {
+          "default": 20.0,
+          "description": "Number of smoothing passes applied after handle constraints.",
+          "editable": true,
+          "editor": "number",
+          "type": "number"
+        },
+        "phase_filter": {
+          "default": "update_or_commit",
+          "description": "Which interaction event phases are allowed to trigger deformation.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "all",
+            "update",
+            "commit",
+            "update_or_commit"
+          ],
+          "type": "string"
+        },
+        "strength": {
+          "default": 0.35,
+          "description": "Blend factor between current vertex positions and laplacian average.",
+          "editable": true,
+          "editor": "number",
+          "type": "number"
+        }
+      }
+    },
+    {
+      "category": "Data",
+      "color": "#3182ce",
+      "description": "Build line set from points and N x 2 index matrix",
+      "id": "lines",
+      "inputs": [
+        {
+          "customType": "points",
+          "id": "points",
+          "label": "Points",
+          "type": "custom"
+        },
+        {
+          "id": "indices",
+          "label": "Indices(Nx2)",
+          "type": "matrix"
+        }
+      ],
+      "name": "Lines",
+      "outputs": [
+        {
+          "customType": "lines",
+          "id": "lines",
+          "label": "Lines",
+          "type": "custom"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "undirected",
+          "description": "Choose whether segments should be treated as directed or undirected.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "undirected",
+            "directed"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Data",
+      "color": "#3182ce",
+      "description": "List operations",
+      "id": "list",
+      "inputs": [],
+      "name": "List",
+      "outputs": [
+        {
+          "id": "list",
+          "label": "List",
+          "type": "list"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "number",
+          "description": "Interpret list elements as numbers or strings.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "number",
+            "string"
+          ],
+          "type": "string"
+        },
+        "values": {
+          "default": "1,2,3,4,5",
+          "description": "Comma-separated list contents or explicit array input.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Component-wise list operations",
+      "id": "list_math",
+      "inputs": [
+        {
+          "id": "a",
+          "label": "List A",
+          "type": "list"
+        },
+        {
+          "id": "b",
+          "label": "List B",
+          "type": "list"
+        }
+      ],
+      "name": "List Math",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "list"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "add",
+          "description": "Component-wise list math or concatenation between inputs A and B.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide",
+            "min",
+            "max",
+            "merge"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "List-scalar operations",
+      "id": "list_scalar",
+      "inputs": [
+        {
+          "id": "list",
+          "label": "List",
+          "type": "list"
+        },
+        {
+          "id": "scalar",
+          "label": "Scalar",
+          "type": "number"
+        }
+      ],
+      "name": "List Scalar",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "list"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "add",
+          "description": "Operation applied between each list element and the scalar input.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide",
+            "min",
+            "max"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Single-list operations",
+      "id": "list_unary",
+      "inputs": [
+        {
+          "id": "a",
+          "label": "List",
+          "type": "list"
+        }
+      ],
+      "name": "List Unary",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "list"
+        },
+        {
+          "id": "scalar",
+          "label": "Scalar",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "sum",
+          "description": "Unary list reduction or transform applied to input A.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "sum",
+            "average",
+            "min",
+            "max",
+            "count",
+            "reverse"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Load lines from OBJ file",
+      "id": "load_lines",
+      "inputs": [
+        {
+          "id": "path",
+          "label": "Path",
+          "type": "string"
+        }
+      ],
+      "name": "Load Lines",
+      "outputs": [
+        {
+          "customType": "lines",
+          "id": "lines",
+          "label": "Lines",
+          "type": "custom"
+        }
+      ],
+      "properties": {
+        "path": {
+          "default": "",
+          "description": "Path to an OBJ file containing line elements.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Load mesh from file path",
+      "id": "load_mesh",
+      "inputs": [
+        {
+          "id": "path",
+          "label": "Path",
+          "type": "string"
+        }
+      ],
+      "name": "Load Mesh",
+      "outputs": [
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        }
+      ],
+      "properties": {
+        "path": {
+          "default": "",
+          "description": "Path to the mesh file loaded by this node.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Load point cloud from XYZ text file",
+      "id": "load_points",
+      "inputs": [
+        {
+          "id": "path",
+          "label": "Path",
+          "type": "string"
+        }
+      ],
+      "name": "Load Points",
+      "outputs": [
+        {
+          "customType": "points",
+          "id": "points",
+          "label": "Points",
+          "type": "custom"
+        }
+      ],
+      "properties": {
+        "path": {
+          "default": "",
+          "description": "Path to an XYZ-style point cloud text file.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Data",
+      "color": "#3182ce",
+      "description": "Create a matrix from a number vector and target column count",
+      "id": "matrix",
+      "inputs": [
+        {
+          "id": "data",
+          "label": "Data",
+          "type": "list"
+        },
+        {
+          "id": "cols",
+          "label": "Cols",
+          "type": "number"
+        }
+      ],
+      "name": "Matrix",
+      "outputs": [
+        {
+          "id": "mat",
+          "label": "Matrix",
+          "type": "matrix"
+        }
+      ],
+      "properties": {}
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Common matrix operations",
+      "id": "matrix_math",
+      "inputs": [
+        {
+          "id": "a",
+          "label": "Matrix A",
+          "type": "matrix"
+        },
+        {
+          "id": "b",
+          "label": "Matrix B",
+          "type": "matrix"
+        }
+      ],
+      "name": "Matrix Math",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "matrix"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "add",
+          "description": "Component-wise, concatenation, or matrix multiplication mode.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide",
+            "min",
+            "max",
+            "matmul",
+            "concat_row",
+            "concat_col"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Matrix-scalar operations",
+      "id": "matrix_scalar",
+      "inputs": [
+        {
+          "id": "mat",
+          "label": "Matrix",
+          "type": "matrix"
+        },
+        {
+          "id": "scalar",
+          "label": "Scalar",
+          "type": "number"
+        }
+      ],
+      "name": "Matrix Scalar",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "matrix"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "add",
+          "description": "Operation applied between the matrix input and scalar input.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Single-matrix operations",
+      "id": "matrix_unary",
+      "inputs": [
+        {
+          "id": "a",
+          "label": "Matrix",
+          "type": "matrix"
+        }
+      ],
+      "name": "Matrix Unary",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "matrix"
+        },
+        {
+          "id": "scalar",
+          "label": "Scalar",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "magnitude",
+          "description": "Unary matrix transform or reduction applied to input matrix A.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "magnitude",
+            "normalize",
+            "negate",
+            "sum",
+            "row_sum",
+            "col_sum",
+            "transpose"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Data",
+      "color": "#3182ce",
+      "description": "Triangle mesh with colormap, UV and texture path",
+      "id": "mesh",
+      "inputs": [
+        {
+          "id": "vertices",
+          "label": "Vertices(Nx3)",
+          "type": "matrix"
+        },
+        {
+          "id": "indices",
+          "label": "Indices(Nx3)",
+          "type": "matrix"
+        },
+        {
+          "id": "colors",
+          "label": "Colors(Nx3)",
+          "type": "matrix"
+        },
+        {
+          "id": "uv",
+          "label": "UV(Nx2)",
+          "type": "matrix"
+        },
+        {
+          "customType": "texture",
+          "id": "texture",
+          "label": "Texture",
+          "type": "custom"
+        }
+      ],
+      "name": "Mesh",
+      "outputs": [
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "solid",
+          "description": "Coloring mode used for the generated fallback mesh.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "solid",
+            "height",
+            "normal"
+          ],
+          "type": "string"
+        },
+        "size": {
+          "default": 1.0,
+          "description": "Fallback primitive size used when no vertex/index matrices are connected.",
+          "editable": true,
+          "editor": "number",
+          "type": "number"
+        }
+      }
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Split mesh into vertices/indices/colors/uv/texture",
+      "id": "mesh_attributes",
+      "inputs": [
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        }
+      ],
+      "name": "Mesh Attributes",
+      "outputs": [
+        {
+          "id": "vertices",
+          "label": "Vertices(Nx3)",
+          "type": "matrix"
+        },
+        {
+          "id": "indices",
+          "label": "Indices(Nx3)",
+          "type": "matrix"
+        },
+        {
+          "id": "colors",
+          "label": "Colors(Nx3)",
+          "type": "matrix"
+        },
+        {
+          "id": "uv",
+          "label": "UV(Nx2)",
+          "type": "matrix"
+        },
+        {
+          "customType": "texture",
+          "id": "texture",
+          "label": "Texture",
+          "type": "custom"
+        }
+      ],
+      "properties": {}
+    },
+    {
+      "category": "Data",
+      "color": "#3182ce",
+      "description": "Build point cloud from N x 3 matrix",
+      "id": "points",
+      "inputs": [
+        {
+          "id": "mat",
+          "label": "Matrix(Nx3)",
+          "type": "matrix"
+        }
+      ],
+      "name": "Points",
+      "outputs": [
+        {
+          "customType": "points",
+          "id": "points",
+          "label": "Points",
+          "type": "custom"
+        }
+      ],
+      "properties": {}
+    },
+    {
+      "category": "Geometry",
+      "color": "#805ad5",
+      "description": "Compute per-vertex Gaussian or mean curvature from a mesh",
+      "id": "scalar_curvature",
+      "inputs": [
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        }
+      ],
+      "name": "Scalar Curvature",
+      "outputs": [
+        {
+          "id": "curvature",
+          "label": "Curvature",
+          "type": "list"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "gaussian",
+          "description": "Choose Gaussian curvature or mean curvature per vertex.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "gaussian",
+            "mean"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Input",
+      "color": "#c05621",
+      "description": "Editable string input",
+      "id": "string",
+      "inputs": [],
+      "name": "String",
+      "outputs": [
+        {
+          "id": "text",
+          "label": "Text",
+          "type": "string"
+        }
+      ],
+      "properties": {
+        "text": {
+          "default": "",
+          "description": "Editable text emitted by this node.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Data",
+      "color": "#3182ce",
+      "description": "Texture resource from image path and material matrix",
+      "id": "texture",
+      "inputs": [
+        {
+          "id": "path",
+          "label": "Image Path",
+          "type": "string"
+        },
+        {
+          "id": "material",
+          "label": "Material Matrix",
+          "type": "matrix"
+        }
+      ],
+      "name": "Texture",
+      "outputs": [
+        {
+          "customType": "texture",
+          "id": "texture",
+          "label": "Texture",
+          "type": "custom"
+        }
+      ],
+      "properties": {
+        "material": {
+          "default": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "description": "Material transform matrix forwarded with the texture payload.",
+          "editable": true,
+          "editor": "text",
+          "type": "array"
+        },
+        "path": {
+          "default": "",
+          "description": "Image path used for the texture resource. Empty falls back to checkerboard.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Input",
+      "color": "#dd6b20",
+      "description": "Numeric value input",
+      "id": "value",
+      "inputs": [],
+      "name": "Value",
+      "outputs": [
+        {
+          "id": "out",
+          "label": "Value",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "value": {
+          "default": 0.0,
+          "description": "Constant numeric value emitted by this node.",
+          "editable": true,
+          "editor": "number",
+          "type": "number"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Value operations",
+      "id": "value_math",
+      "inputs": [
+        {
+          "id": "a",
+          "label": "A",
+          "type": "number"
+        },
+        {
+          "id": "b",
+          "label": "B",
+          "type": "number"
+        }
+      ],
+      "name": "Value Math",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "add",
+          "description": "Arithmetic operation applied to inputs A and B.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Data",
+      "color": "#3182ce",
+      "description": "Create a vector from components",
+      "id": "vector",
+      "inputs": [],
+      "name": "Vector",
+      "outputs": [
+        {
+          "id": "vec",
+          "label": "Vector",
+          "type": "vector"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "number",
+          "description": "Interpret the vector components as numbers or strings.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "number",
+            "string"
+          ],
+          "type": "string"
+        },
+        "values": {
+          "default": "1,2,3",
+          "description": "Comma-separated values or explicit array input.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Component-wise vector operations",
+      "id": "vector_math",
+      "inputs": [
+        {
+          "id": "a",
+          "label": "Vector A",
+          "type": "vector"
+        },
+        {
+          "id": "b",
+          "label": "Vector B",
+          "type": "vector"
+        }
+      ],
+      "name": "Vector Math",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "vector"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "add",
+          "description": "Component-wise vector operation, cross product, or merge.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide",
+            "min",
+            "max",
+            "cross",
+            "merge"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Vector-scalar operations",
+      "id": "vector_scalar",
+      "inputs": [
+        {
+          "id": "vec",
+          "label": "Vector",
+          "type": "vector"
+        },
+        {
+          "id": "scalar",
+          "label": "Scalar",
+          "type": "number"
+        }
+      ],
+      "name": "Vector Scalar",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "vector"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "add",
+          "description": "Operation applied between each vector component and the scalar input.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide",
+            "min",
+            "max"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Operation",
+      "color": "#2a4365",
+      "description": "Single-vector operations",
+      "id": "vector_unary",
+      "inputs": [
+        {
+          "id": "a",
+          "label": "Vector",
+          "type": "vector"
+        }
+      ],
+      "name": "Vector Unary",
+      "outputs": [
+        {
+          "id": "result",
+          "label": "Result",
+          "type": "vector"
+        },
+        {
+          "id": "scalar",
+          "label": "Scalar",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "magnitude",
+          "description": "Unary vector reduction or normalization applied to input A.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "magnitude",
+            "normalize",
+            "sum",
+            "average",
+            "min",
+            "max"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Write lines to OBJ file",
+      "id": "write_lines",
+      "inputs": [
+        {
+          "customType": "lines",
+          "id": "lines",
+          "label": "Lines",
+          "type": "custom"
+        },
+        {
+          "id": "path",
+          "label": "Path",
+          "type": "string"
+        }
+      ],
+      "name": "Write Lines",
+      "outputs": [
+        {
+          "id": "ok",
+          "label": "OK",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "path": {
+          "default": "",
+          "description": "Output OBJ path used when exporting line sets.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Write mesh to OBJ file path",
+      "id": "write_mesh",
+      "inputs": [
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        },
+        {
+          "id": "path",
+          "label": "Path",
+          "type": "string"
+        }
+      ],
+      "name": "Write Mesh",
+      "outputs": [
+        {
+          "id": "ok",
+          "label": "OK",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "path": {
+          "default": "",
+          "description": "Output OBJ path used when exporting the mesh.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Write point cloud to XYZ text file",
+      "id": "write_points",
+      "inputs": [
+        {
+          "customType": "points",
+          "id": "points",
+          "label": "Points",
+          "type": "custom"
+        },
+        {
+          "id": "path",
+          "label": "Path",
+          "type": "string"
+        }
+      ],
+      "name": "Write Points",
+      "outputs": [
+        {
+          "id": "ok",
+          "label": "OK",
+          "type": "number"
+        }
+      ],
+      "properties": {
+        "path": {
+          "default": "",
+          "description": "Output path for the exported XYZ point cloud.",
+          "editable": true,
+          "editor": "text",
+          "type": "string"
+        }
+      }
+    }
+  ]
+}

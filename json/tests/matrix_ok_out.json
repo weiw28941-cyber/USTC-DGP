@@ -1,0 +1,76 @@
+{
+  "connections": [
+    {
+      "from_node": 1,
+      "from_node_name": "List",
+      "from_socket": "list",
+      "from_socket_index": 0,
+      "success": true,
+      "to_node": 3,
+      "to_node_name": "Matrix",
+      "to_socket": "data",
+      "to_socket_index": 0
+    },
+    {
+      "from_node": 2,
+      "from_node_name": "Value",
+      "from_socket": "out",
+      "from_socket_index": 0,
+      "success": true,
+      "to_node": 3,
+      "to_node_name": "Matrix",
+      "to_socket": "cols",
+      "to_socket_index": 1
+    }
+  ],
+  "nodes": [
+    {
+      "id": 1,
+      "name": "List",
+      "outputs": {
+        "list": [
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0
+        ]
+      },
+      "success": true,
+      "type": "list"
+    },
+    {
+      "id": 2,
+      "name": "Value",
+      "outputs": {
+        "out": 2.0
+      },
+      "success": true,
+      "type": "value"
+    },
+    {
+      "id": 3,
+      "name": "Matrix",
+      "outputs": {
+        "mat": [
+          [
+            1.0,
+            2.0
+          ],
+          [
+            3.0,
+            4.0
+          ],
+          [
+            5.0,
+            6.0
+          ]
+        ]
+      },
+      "success": true,
+      "type": "matrix"
+    }
+  ],
+  "text_outputs": []
+}

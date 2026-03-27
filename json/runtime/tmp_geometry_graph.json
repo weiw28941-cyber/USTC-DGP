@@ -1,0 +1,6 @@
+{
+  "nodes": [
+    { "id": 20, "type": "geometry", "properties": { "values": [0,0,1] } }
+  ],
+  "connections": []
+}

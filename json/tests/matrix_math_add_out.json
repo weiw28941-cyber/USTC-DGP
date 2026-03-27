@@ -1,0 +1,173 @@
+{
+  "connections": [
+    {
+      "from_node": 1,
+      "from_node_name": "List",
+      "from_socket": "list",
+      "from_socket_index": 0,
+      "success": true,
+      "to_node": 3,
+      "to_node_name": "Matrix",
+      "to_socket": "data",
+      "to_socket_index": 0
+    },
+    {
+      "from_node": 2,
+      "from_node_name": "Value",
+      "from_socket": "out",
+      "from_socket_index": 0,
+      "success": true,
+      "to_node": 3,
+      "to_node_name": "Matrix",
+      "to_socket": "cols",
+      "to_socket_index": 1
+    },
+    {
+      "from_node": 4,
+      "from_node_name": "List",
+      "from_socket": "list",
+      "from_socket_index": 0,
+      "success": true,
+      "to_node": 6,
+      "to_node_name": "Matrix",
+      "to_socket": "data",
+      "to_socket_index": 0
+    },
+    {
+      "from_node": 5,
+      "from_node_name": "Value",
+      "from_socket": "out",
+      "from_socket_index": 0,
+      "success": true,
+      "to_node": 6,
+      "to_node_name": "Matrix",
+      "to_socket": "cols",
+      "to_socket_index": 1
+    },
+    {
+      "from_node": 3,
+      "from_node_name": "Matrix",
+      "from_socket": "mat",
+      "from_socket_index": 0,
+      "success": true,
+      "to_node": 7,
+      "to_node_name": "Matrix Math",
+      "to_socket": "a",
+      "to_socket_index": 0
+    },
+    {
+      "from_node": 6,
+      "from_node_name": "Matrix",
+      "from_socket": "mat",
+      "from_socket_index": 0,
+      "success": true,
+      "to_node": 7,
+      "to_node_name": "Matrix Math",
+      "to_socket": "b",
+      "to_socket_index": 1
+    }
+  ],
+  "nodes": [
+    {
+      "id": 1,
+      "name": "List",
+      "outputs": {
+        "list": [
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ]
+      },
+      "success": true,
+      "type": "list"
+    },
+    {
+      "id": 2,
+      "name": "Value",
+      "outputs": {
+        "out": 2.0
+      },
+      "success": true,
+      "type": "value"
+    },
+    {
+      "id": 3,
+      "name": "Matrix",
+      "outputs": {
+        "mat": [
+          [
+            1.0,
+            2.0
+          ],
+          [
+            3.0,
+            4.0
+          ]
+        ]
+      },
+      "success": true,
+      "type": "matrix"
+    },
+    {
+      "id": 4,
+      "name": "List",
+      "outputs": {
+        "list": [
+          5.0,
+          6.0,
+          7.0,
+          8.0
+        ]
+      },
+      "success": true,
+      "type": "list"
+    },
+    {
+      "id": 5,
+      "name": "Value",
+      "outputs": {
+        "out": 2.0
+      },
+      "success": true,
+      "type": "value"
+    },
+    {
+      "id": 6,
+      "name": "Matrix",
+      "outputs": {
+        "mat": [
+          [
+            5.0,
+            6.0
+          ],
+          [
+            7.0,
+            8.0
+          ]
+        ]
+      },
+      "success": true,
+      "type": "matrix"
+    },
+    {
+      "id": 7,
+      "name": "Matrix Math",
+      "outputs": {
+        "result": [
+          [
+            6.0,
+            8.0
+          ],
+          [
+            10.0,
+            12.0
+          ]
+        ]
+      },
+      "success": true,
+      "type": "matrix_math"
+    }
+  ],
+  "text_outputs": []
+}

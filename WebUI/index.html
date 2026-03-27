@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <h1>Node Editor</h1>
+            <div class="toolbar-buttons">
+                <button id="helpButton">Help</button>
+                <button id="saveGraph">Save Graph</button>
+                <button id="loadGraph">Load Graph</button>
+                <button id="clearCanvas">Clear</button>
+            </div>
+        </div>
+        <canvas id="nodeCanvas"></canvas>
+        <div class="output-splitter" aria-label="Resize output panel" title="Drag to resize output panel"></div>
+        <div class="output-panel">
+            <h3>Output</h3>
+            <pre id="output"></pre>
+        </div>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

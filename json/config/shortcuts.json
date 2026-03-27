@@ -1,0 +1,399 @@
+{
+  "version": 1,
+  "sections": [
+    {
+      "title": "Basic Operations",
+      "items": [
+        {
+          "id": "open_search",
+          "desc": "Open search menu to add nodes",
+          "keys": [
+            "Shift+A"
+          ],
+          "display": "Shift+A",
+          "editable": true
+        },
+        {
+          "id": "edit_node",
+          "desc": "Edit node values",
+          "display": "Double-click node",
+          "editable": false
+        },
+        {
+          "id": "drag",
+          "desc": "Connect nodes, move nodes",
+          "display": "Drag",
+          "editable": false
+        },
+        {
+          "id": "pan",
+          "desc": "Pan view",
+          "display": "Middle-click drag",
+          "editable": false
+        },
+        {
+          "id": "zoom",
+          "desc": "Zoom in/out",
+          "display": "Mouse wheel",
+          "editable": false
+        }
+      ]
+    },
+    {
+      "title": "Selection",
+      "items": [
+        {
+          "id": "select_add",
+          "desc": "Add to selection",
+          "display": "Shift+Click",
+          "editable": false
+        },
+        {
+          "id": "select_toggle",
+          "desc": "Toggle selection",
+          "display": "Ctrl+Click",
+          "editable": false
+        },
+        {
+          "id": "box_select",
+          "desc": "Box select",
+          "display": "Drag empty space",
+          "editable": false
+        },
+        {
+          "id": "select_all",
+          "desc": "Select all",
+          "keys": [
+            "A"
+          ],
+          "editable": true,
+          "display": "A"
+        },
+        {
+          "id": "deselect_all",
+          "desc": "Deselect all",
+          "keys": [
+            "Escape"
+          ],
+          "editable": true,
+          "display": "Escape"
+        },
+        {
+          "id": "invert_selection",
+          "desc": "Invert selection",
+          "keys": [
+            "Ctrl+I"
+          ],
+          "editable": true,
+          "display": "Ctrl+I"
+        }
+      ]
+    },
+    {
+      "title": "Editing",
+      "items": [
+        {
+          "id": "delete_selected",
+          "desc": "Delete selected nodes",
+          "keys": [
+            "Delete",
+            "X"
+          ],
+          "editable": true,
+          "display": "Delete / X"
+        },
+        {
+          "id": "copy",
+          "desc": "Copy",
+          "keys": [
+            "Ctrl+C"
+          ],
+          "editable": true,
+          "display": "Ctrl+C"
+        },
+        {
+          "id": "cut",
+          "desc": "Cut",
+          "keys": [
+            "Ctrl+X"
+          ],
+          "editable": true,
+          "display": "Ctrl+X"
+        },
+        {
+          "id": "paste",
+          "desc": "Paste",
+          "keys": [
+            "Ctrl+V"
+          ],
+          "editable": true,
+          "display": "Ctrl+V"
+        },
+        {
+          "id": "duplicate",
+          "desc": "Duplicate (Blender style)",
+          "keys": [
+            "Shift+D"
+          ],
+          "editable": true,
+          "display": "Shift+D"
+        },
+        {
+          "id": "undo",
+          "desc": "Undo",
+          "keys": [
+            "Ctrl+Z"
+          ],
+          "editable": true,
+          "display": "Ctrl+Z"
+        },
+        {
+          "id": "redo",
+          "desc": "Redo",
+          "keys": [
+            "Ctrl+Shift+Z",
+            "Ctrl+Y"
+          ],
+          "editable": true,
+          "display": "Ctrl+Shift+Z / Ctrl+Y"
+        }
+      ]
+    },
+    {
+      "title": "View",
+      "items": [
+        {
+          "id": "frame_all",
+          "desc": "Frame all nodes",
+          "keys": [
+            "Home"
+          ],
+          "editable": true,
+          "display": "Home"
+        },
+        {
+          "id": "frame_selected",
+          "desc": "Frame selected node",
+          "keys": [
+            "F"
+          ],
+          "editable": true,
+          "display": "F"
+        },
+        {
+          "id": "reset_view",
+          "desc": "Reset view",
+          "keys": [
+            "R"
+          ],
+          "editable": true,
+          "display": "R"
+        },
+        {
+          "id": "toggle_grid",
+          "desc": "Toggle grid snap",
+          "keys": [
+            "G"
+          ],
+          "editable": true,
+          "display": "G"
+        },
+        {
+          "id": "toggle_preview",
+          "desc": "Toggle node preview",
+          "keys": [
+            "P"
+          ],
+          "editable": true,
+          "display": "P"
+        }
+      ]
+    },
+    {
+      "title": "Alignment",
+      "items": [
+        {
+          "id": "align_left",
+          "desc": "Align left",
+          "keys": [
+            "Shift+ArrowLeft"
+          ],
+          "editable": true,
+          "display": "Shift+ArrowLeft"
+        },
+        {
+          "id": "align_right",
+          "desc": "Align right",
+          "keys": [
+            "Shift+ArrowRight"
+          ],
+          "editable": true,
+          "display": "Shift+ArrowRight"
+        },
+        {
+          "id": "align_top",
+          "desc": "Align top",
+          "keys": [
+            "Shift+ArrowUp"
+          ],
+          "editable": true,
+          "display": "Shift+ArrowUp"
+        },
+        {
+          "id": "align_bottom",
+          "desc": "Align bottom",
+          "keys": [
+            "Shift+ArrowDown"
+          ],
+          "editable": true,
+          "display": "Shift+ArrowDown"
+        },
+        {
+          "id": "align_center_h",
+          "desc": "Horizontal center align",
+          "keys": [
+            "Alt+H"
+          ],
+          "editable": true,
+          "display": "Alt+H"
+        },
+        {
+          "id": "align_center_v",
+          "desc": "Vertical center align",
+          "keys": [
+            "Alt+V"
+          ],
+          "editable": true,
+          "display": "Alt+V"
+        },
+        {
+          "id": "distribute_h",
+          "desc": "Distribute horizontally",
+          "keys": [
+            "Alt+D"
+          ],
+          "editable": true,
+          "display": "Alt+D"
+        },
+        {
+          "id": "distribute_v",
+          "desc": "Distribute vertically",
+          "keys": [
+            "Alt+E"
+          ],
+          "editable": true,
+          "display": "Alt+E"
+        }
+      ]
+    },
+    {
+      "title": "Node Groups",
+      "items": [
+        {
+          "id": "create_group",
+          "desc": "Create node group",
+          "keys": [
+            "Ctrl+Shift+G"
+          ],
+          "editable": true,
+          "display": "Ctrl+Shift+G"
+        },
+        {
+          "id": "ungroup",
+          "desc": "Ungroup nodes",
+          "keys": [
+            "Alt+G"
+          ],
+          "editable": true,
+          "display": "Alt+G"
+        },
+        {
+          "id": "collapse_group",
+          "desc": "Collapse/expand group",
+          "display": "Double-click group title",
+          "editable": false
+        },
+        {
+          "id": "rename_group",
+          "desc": "Rename group",
+          "display": "Ctrl+Click group title",
+          "editable": false
+        }
+      ]
+    },
+    {
+      "title": "Comments",
+      "items": [
+        {
+          "id": "add_comment",
+          "desc": "Create comment box",
+          "keys": [
+            "Shift+C"
+          ],
+          "editable": true,
+          "display": "Shift+C"
+        },
+        {
+          "id": "edit_comment",
+          "desc": "Edit comment text",
+          "display": "Ctrl+Click comment",
+          "editable": false
+        }
+      ]
+    },
+    {
+      "title": "Template Library",
+      "items": [
+        {
+          "id": "save_template",
+          "desc": "Save selected nodes as template",
+          "keys": [
+            "Ctrl+M"
+          ],
+          "editable": true,
+          "display": "Ctrl+M"
+        },
+        {
+          "id": "open_template_library",
+          "desc": "Open template library",
+          "keys": [
+            "Alt+M"
+          ],
+          "editable": true,
+          "display": "Alt+M"
+        }
+      ]
+    },
+    {
+      "title": "Performance",
+      "items": [
+        {
+          "id": "toggle_performance",
+          "desc": "Toggle performance metrics",
+          "keys": [
+            "Ctrl+Shift+P"
+          ],
+          "editable": true,
+          "display": "Ctrl+Shift+P"
+        }
+      ]
+    },
+    {
+      "title": "Connections",
+      "items": [
+        {
+          "id": "redirect_connection",
+          "desc": "Redirect connection",
+          "display": "Click input socket",
+          "editable": false
+        },
+        {
+          "id": "disconnect_connection",
+          "desc": "Disconnect",
+          "display": "Alt+Click connection",
+          "editable": false
+        }
+      ]
+    }
+  ]
+}

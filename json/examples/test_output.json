@@ -1,0 +1,62 @@
+{
+  "connections": [
+    {
+      "from_node": 0,
+      "from_socket": "out",
+      "success": true,
+      "to_node": 2,
+      "to_socket": "a"
+    },
+    {
+      "from_node": 1,
+      "from_socket": "out",
+      "success": true,
+      "to_node": 2,
+      "to_socket": "b"
+    },
+    {
+      "from_node": 2,
+      "from_socket": "result",
+      "success": true,
+      "to_node": 3,
+      "to_socket": "in"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 0,
+      "outputs": {
+        "out": 1.0
+      },
+      "success": true,
+      "type": "value"
+    },
+    {
+      "id": 1,
+      "outputs": {
+        "out": 1.0
+      },
+      "success": true,
+      "type": "value"
+    },
+    {
+      "id": 2,
+      "outputs": {
+        "result": 2.0
+      },
+      "success": true,
+      "type": "math"
+    },
+    {
+      "id": 3,
+      "outputs": {
+        "text": "Result: 2.000000"
+      },
+      "success": true,
+      "type": "text_display"
+    }
+  ],
+  "text_outputs": [
+    "Result: 2.000000"
+  ]
+}

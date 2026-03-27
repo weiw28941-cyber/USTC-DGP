@@ -1,0 +1,454 @@
+{
+  "schemaVersion": 2,
+  "meta": {
+    "savedAt": "2026-03-17T02:31:24.105Z",
+    "nodeIdCounter": 20
+  },
+  "view": {
+    "offsetX": 46.75641644864697,
+    "offsetY": 41.550424541281245,
+    "scale": 0.5364484531970287
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "type": "load_mesh",
+      "x": 250,
+      "y": -50,
+      "width": 180,
+      "height": 120,
+      "properties": {
+        "path": ""
+      },
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 1,
+      "type": "string",
+      "x": -200,
+      "y": -50,
+      "width": 180,
+      "height": 120,
+      "properties": {
+        "text": "C:\\Users\\lym29\\Documents\\DGP\\data\\bunny.obj"
+      },
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "text": "C:\\Users\\lym29\\Documents\\DGP\\data\\bunny.obj",
+      "values": null
+    },
+    {
+      "id": 2,
+      "type": "scalar_curvature",
+      "x": -150,
+      "y": 250,
+      "width": 180,
+      "height": 120,
+      "properties": {
+        "operation": "mean"
+      },
+      "value": 0,
+      "operation": "mean",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 4,
+      "type": "vector_scalar",
+      "x": 800,
+      "y": 200,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "multiply"
+      },
+      "value": 0,
+      "operation": "multiply",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 5,
+      "type": "value",
+      "x": 550,
+      "y": 250,
+      "width": 180,
+      "height": 120,
+      "properties": {
+        "value": 1
+      },
+      "value": 1,
+      "operation": "add",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 6,
+      "type": "matrix_math",
+      "x": 1050,
+      "y": 150,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "concat_row"
+      },
+      "value": 0,
+      "operation": "concat_row",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 7,
+      "type": "matrix_math",
+      "x": 1050,
+      "y": 300,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "concat_row"
+      },
+      "value": 0,
+      "operation": "concat_row",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 8,
+      "type": "mesh_attributes",
+      "x": 850,
+      "y": -100,
+      "width": 180,
+      "height": 260,
+      "properties": {},
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 9,
+      "type": "mesh",
+      "x": 1350,
+      "y": -50,
+      "width": 180,
+      "height": 260,
+      "properties": {
+        "operation": "solid",
+        "size": ""
+      },
+      "value": 0,
+      "operation": "solid",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 10,
+      "type": "matrix_unary",
+      "x": 1300,
+      "y": 400,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "transpose"
+      },
+      "value": 0,
+      "operation": "transpose",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 11,
+      "type": "geometry",
+      "x": 1600,
+      "y": -100,
+      "width": 180,
+      "height": 220,
+      "properties": {
+        "linesCount": "",
+        "meshCount": "",
+        "pointsCount": "",
+        "values": [
+          1,
+          1,
+          1
+        ]
+      },
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 12,
+      "type": "geometry_viewer",
+      "x": 1800,
+      "y": 150,
+      "width": 180,
+      "height": 180,
+      "properties": {
+        "intensity": "",
+        "interaction_event": {
+          "channel": "viewer",
+          "phase": "update",
+          "sourceNodeId": 12,
+          "targetNodeId": 12,
+          "version": 1773714678142,
+          "timestampMs": 1773714678145,
+          "source": "webui",
+          "payload": {
+            "sourceViewerNodeId": 12,
+            "action": "viewer_object_display_flags",
+            "value": {
+              "target": "geom_d33efda4446ae488",
+              "points": false,
+              "lines": false,
+              "faces": true
+            }
+          }
+        },
+        "light": ""
+      },
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 13,
+      "type": "vector_unary",
+      "x": 100,
+      "y": 550,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "min"
+      },
+      "value": 0,
+      "operation": "min",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 14,
+      "type": "vector_unary",
+      "x": 100,
+      "y": 350,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "max"
+      },
+      "value": 0,
+      "operation": "max",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 15,
+      "type": "value_math",
+      "x": 350,
+      "y": 400,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "subtract"
+      },
+      "value": 0,
+      "operation": "subtract",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 16,
+      "type": "vector_scalar",
+      "x": 250,
+      "y": 200,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "subtract"
+      },
+      "value": 0,
+      "operation": "subtract",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 17,
+      "type": "vector_scalar",
+      "x": 500,
+      "y": 50,
+      "width": 180,
+      "height": 140,
+      "properties": {
+        "operation": "divide"
+      },
+      "value": 0,
+      "operation": "divide",
+      "label": "Result",
+      "values": null
+    }
+  ],
+  "groups": [],
+  "comments": [],
+  "connections": [
+    {
+      "from_node": 1,
+      "from_socket": "text",
+      "to_node": 0,
+      "to_socket": "path"
+    },
+    {
+      "from_node": 0,
+      "from_socket": "mesh",
+      "to_node": 2,
+      "to_socket": "mesh"
+    },
+    {
+      "from_node": 5,
+      "from_socket": "out",
+      "to_node": 4,
+      "to_socket": "scalar"
+    },
+    {
+      "from_node": 4,
+      "from_socket": "result",
+      "to_node": 6,
+      "to_socket": "a"
+    },
+    {
+      "from_node": 4,
+      "from_socket": "result",
+      "to_node": 6,
+      "to_socket": "b"
+    },
+    {
+      "from_node": 6,
+      "from_socket": "result",
+      "to_node": 7,
+      "to_socket": "a"
+    },
+    {
+      "from_node": 4,
+      "from_socket": "result",
+      "to_node": 7,
+      "to_socket": "b"
+    },
+    {
+      "from_node": 0,
+      "from_socket": "mesh",
+      "to_node": 8,
+      "to_socket": "mesh"
+    },
+    {
+      "from_node": 8,
+      "from_socket": "vertices",
+      "to_node": 9,
+      "to_socket": "vertices"
+    },
+    {
+      "from_node": 8,
+      "from_socket": "indices",
+      "to_node": 9,
+      "to_socket": "indices"
+    },
+    {
+      "from_node": 7,
+      "from_socket": "result",
+      "to_node": 10,
+      "to_socket": "a"
+    },
+    {
+      "from_node": 10,
+      "from_socket": "result",
+      "to_node": 9,
+      "to_socket": "colors"
+    },
+    {
+      "from_node": 8,
+      "from_socket": "texture",
+      "to_node": 9,
+      "to_socket": "texture"
+    },
+    {
+      "from_node": 8,
+      "from_socket": "uv",
+      "to_node": 9,
+      "to_socket": "uv"
+    },
+    {
+      "from_node": 9,
+      "from_socket": "mesh",
+      "to_node": 11,
+      "to_socket": "mesh"
+    },
+    {
+      "from_node": 11,
+      "from_socket": "geometry",
+      "to_node": 12,
+      "to_socket": "geometry"
+    },
+    {
+      "from_node": 2,
+      "from_socket": "curvature",
+      "to_node": 13,
+      "to_socket": "a"
+    },
+    {
+      "from_node": 2,
+      "from_socket": "curvature",
+      "to_node": 14,
+      "to_socket": "a"
+    },
+    {
+      "from_node": 14,
+      "from_socket": "scalar",
+      "to_node": 15,
+      "to_socket": "a"
+    },
+    {
+      "from_node": 13,
+      "from_socket": "scalar",
+      "to_node": 15,
+      "to_socket": "b"
+    },
+    {
+      "from_node": 2,
+      "from_socket": "curvature",
+      "to_node": 16,
+      "to_socket": "vec"
+    },
+    {
+      "from_node": 13,
+      "from_socket": "scalar",
+      "to_node": 16,
+      "to_socket": "scalar"
+    },
+    {
+      "from_node": 16,
+      "from_socket": "result",
+      "to_node": 17,
+      "to_socket": "vec"
+    },
+    {
+      "from_node": 15,
+      "from_socket": "result",
+      "to_node": 17,
+      "to_socket": "scalar"
+    },
+    {
+      "from_node": 17,
+      "from_socket": "result",
+      "to_node": 4,
+      "to_socket": "vec"
+    }
+  ]
+}

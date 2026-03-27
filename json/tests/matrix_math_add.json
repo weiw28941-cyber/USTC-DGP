@@ -1,0 +1,23 @@
+﻿{
+  "nodes": [
+    {"id": 1, "type": "list", "values": [1,2,3,4]},
+    {"id": 2, "type": "value", "value": 2},
+    {"id": 3, "type": "matrix"},
+
+    {"id": 4, "type": "list", "values": [5,6,7,8]},
+    {"id": 5, "type": "value", "value": 2},
+    {"id": 6, "type": "matrix"},
+
+    {"id": 7, "type": "matrix_math", "operation": "add"}
+  ],
+  "connections": [
+    {"from_node": 1, "from_socket": "list", "to_node": 3, "to_socket": "data"},
+    {"from_node": 2, "from_socket": "out", "to_node": 3, "to_socket": "cols"},
+
+    {"from_node": 4, "from_socket": "list", "to_node": 6, "to_socket": "data"},
+    {"from_node": 5, "from_socket": "out", "to_node": 6, "to_socket": "cols"},
+
+    {"from_node": 3, "from_socket": "mat", "to_node": 7, "to_socket": "a"},
+    {"from_node": 6, "from_socket": "mat", "to_node": 7, "to_socket": "b"}
+  ]
+}

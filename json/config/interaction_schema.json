@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "interaction_event.schema.json",
+  "title": "Interaction Event",
+  "type": "object",
+  "required": [
+    "channel",
+    "phase",
+    "sourceNodeId",
+    "targetNodeId",
+    "version",
+    "timestampMs",
+    "payload"
+  ],
+  "properties": {
+    "channel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "phase": {
+      "type": "string",
+      "enum": ["begin", "update", "commit", "cancel"]
+    },
+    "sourceNodeId": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "targetNodeId": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "timestampMs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "meta": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

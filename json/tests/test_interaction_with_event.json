@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "type": "mesh_cube",
+      "x": 100,
+      "y": 100,
+      "properties": {}
+    },
+    {
+      "id": 2,
+      "type": "geometry",
+      "x": 300,
+      "y": 100,
+      "properties": {
+        "pointsCount": 0,
+        "linesCount": 0,
+        "meshCount": 1
+      }
+    },
+    {
+      "id": 3,
+      "type": "geometry_viewer",
+      "x": 500,
+      "y": 100,
+      "properties": {
+        "light": [0.45, 0.75, 0.55],
+        "intensity": 1.2,
+        "interaction_event": {
+          "channel": "mesh_edit",
+          "phase": "update",
+          "targetNodeId": 3,
+          "version": 12345,
+          "source": "test",
+          "payload": {
+            "action": "mesh_edit_handles",
+            "value": {
+              "handleIndices": [0, 1, 2],
+              "handlePositions": [[1.5, 0.0, 0.0], [0.0, 1.5, 0.0], [0.0, 0.0, 1.5]]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "interaction_state",
+      "x": 750,
+      "y": 100,
+      "properties": {
+        "channel": "mesh_edit",
+        "phase_filter": "all"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from_node": 1,
+      "from_socket": "mesh",
+      "to_node": 2,
+      "to_socket": "mesh"
+    },
+    {
+      "from_node": 2,
+      "from_socket": "geometry",
+      "to_node": 3,
+      "to_socket": "geometry"
+    },
+    {
+      "from_node": 3,
+      "from_socket": "interaction",
+      "to_node": 4,
+      "to_socket": "event"
+    }
+  ],
+  "groups": [],
+  "comments": [],
+  "patches": [
+    {
+      "op": "viewer_interaction",
+      "nodeId": 3,
+      "key": "interaction_event",
+      "value": {
+        "channel": "mesh_edit",
+        "phase": "update",
+        "targetNodeId": 3,
+        "version": 12345,
+        "source": "test",
+        "payload": {
+          "action": "mesh_edit_handles",
+          "value": {
+            "handleIndices": [0, 1, 2],
+            "handlePositions": [[1.5, 0.0, 0.0], [0.0, 1.5, 0.0], [0.0, 0.0, 1.5]]
+          }
+        }
+      }
+    }
+  ]
+}
