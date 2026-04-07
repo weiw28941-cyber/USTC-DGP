@@ -1,0 +1,31 @@
+#pragma once
+
+#include "node_base.h"
+#include "node_points.h"
+#include <any>
+#include <map>
+#include <string>
+#include <vector>
+
+class node_pointCurvature : public NodeBase {
+public:
+  std::string getType() const override;
+  std::string getName() const override;
+  std::string getCategory() const override;
+  std::string getDescription() const override;
+  std::vector<Socket> getInputs() const override;
+  std::vector<Socket> getOutputs() const override;
+  std::map<std::string, std::any> getProperties() const override;
+  std::map<std::string, std::vector<std::string>>
+  getPropertyOptions() const override;
+  NodeSchema getSchema() const override;
+  bool execute(const std::map<std::string, std::any> &inputs,
+               std::map<std::string, std::any> &outputs,
+               const std::map<std::string, std::any> &properties) override;
+
+private:
+  mutable bool cacheValid_ = false;
+  mutable std::size_t cachedMeshSignature_ = 0;
+  mutable std::vector<double> cachedGaussian_;
+  mutable std::vector<double> cachedMean_;
+};

@@ -124,6 +124,15 @@ class ExecutionResultApplier {
                 this.applyPagedPreviewValue(node, nodeResult.outputs.list, 'list');
             } else if (node.type === 'matrix' && nodeResult.outputs.mat !== undefined) {
                 this.applyPagedPreviewValue(node, nodeResult.outputs.mat, 'mat');
+            } else if (node.type === 'points_attributes'
+                && (nodeResult.outputs.vertices !== undefined
+                    || nodeResult.outputs.colors !== undefined)) {
+                node.previewValue = {
+                    vertices: nodeResult.outputs.vertices !== undefined ? nodeResult.outputs.vertices : [],
+                    colors: nodeResult.outputs.colors !== undefined ? nodeResult.outputs.colors : []
+                };
+                node.previewMeta.socketId = 'vertices';
+                node.previewMeta.loadedCount = null;
             } else if (nodeResult.outputs.result !== undefined) {
                 this.applyPagedPreviewValue(node, nodeResult.outputs.result, 'result');
             } else {

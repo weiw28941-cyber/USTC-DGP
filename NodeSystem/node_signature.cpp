@@ -87,13 +87,16 @@ std::size_t hashMesh(const Mesh &mesh) {
 }
 
 std::size_t hashPointCloud(const PointCloud &pc) {
-  return hashVectorArrayPod(pc.points);
+  std::size_t h = hashVectorArrayPod(pc.vertices);
+  h = hashCombine(h, hashVectorArrayPod(pc.colors));
+  return h;
 }
 
 std::size_t hashLineSet(const LineSet &lines) {
   std::size_t h = hashVectorArrayPod(lines.points);
   h = hashCombine(h, hashVectorArrayPod(lines.segments));
-  h = hashCombine(h, hashPod(static_cast<unsigned char>(lines.directed ? 1 : 0)));
+  h = hashCombine(h,
+                  hashPod(static_cast<unsigned char>(lines.directed ? 1 : 0)));
   return h;
 }
 
@@ -134,7 +137,8 @@ std::size_t hashGeometryViewPayload(const GeometryViewPayload &payload) {
   h = hashCombine(h, hashString(payload.meshId));
   h = hashCombine(h, hashPod(payload.version));
   h = hashCombine(h, hashString(payload.dataFormat));
-  h = hashCombine(h, hashPod(static_cast<std::uint64_t>(payload.objects.size())));
+  h = hashCombine(h,
+                  hashPod(static_cast<std::uint64_t>(payload.objects.size())));
   for (const auto &obj : payload.objects) {
     h = hashCombine(h, hashGeometryObject(obj));
   }

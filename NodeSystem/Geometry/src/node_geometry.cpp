@@ -473,16 +473,25 @@ bool node_geometry::execute(
         GeometryData::Object object;
         object.type = "points";
         object.colorMap = "points_color";
-        for (const auto &p : points->points) {
-          const int idx = appendVertex(geometry, p[0], p[1], p[2], pointColor,
-                                       {0.0f, 0.0f});
+        const bool hasPointColors =
+            points->colors.size() == points->vertices.size();
+        for (size_t i = 0; i < points->vertices.size(); ++i) {
+          const auto &p = points->vertices[i];
+          std::array<float, 3> color = pointColor;
+          if (hasPointColors) {
+            color = {static_cast<float>(points->colors[i][0]),
+                     static_cast<float>(points->colors[i][1]),
+                     static_cast<float>(points->colors[i][2])};
+          }
+          const int idx =
+              appendVertex(geometry, p[0], p[1], p[2], color, {0.0f, 0.0f});
           geometry.pointIndices.push_back(idx);
           object.positions.push_back(static_cast<float>(p[0]));
           object.positions.push_back(static_cast<float>(p[1]));
           object.positions.push_back(static_cast<float>(p[2]));
-          object.colors.push_back(pointColor[0]);
-          object.colors.push_back(pointColor[1]);
-          object.colors.push_back(pointColor[2]);
+          object.colors.push_back(color[0]);
+          object.colors.push_back(color[1]);
+          object.colors.push_back(color[2]);
           object.texcoords.push_back(0.0f);
           object.texcoords.push_back(0.0f);
           object.pointIndices.push_back(

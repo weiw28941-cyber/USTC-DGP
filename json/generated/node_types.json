@@ -928,14 +928,54 @@
       "properties": {}
     },
     {
+      "category": "Geometry",
+      "color": "#805ad5",
+      "description": "Compute per-vertex Gaussian or mean curvature from a point cloud",
+      "id": "point_curvature",
+      "inputs": [
+        {
+          "customType": "points",
+          "id": "points",
+          "label": "Points",
+          "type": "custom"
+        }
+      ],
+      "name": "Point Curvature",
+      "outputs": [
+        {
+          "id": "curvature",
+          "label": "Curvature",
+          "type": "list"
+        }
+      ],
+      "properties": {
+        "operation": {
+          "default": "gaussian",
+          "description": "Choose Gaussian curvature or mean curvature per vertex.",
+          "editable": true,
+          "editor": "select",
+          "options": [
+            "gaussian",
+            "mean"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
       "category": "Data",
       "color": "#3182ce",
-      "description": "Build point cloud from N x 3 matrix",
+      "description": "Build point cloud from vertices and optional colors",
       "id": "points",
       "inputs": [
         {
-          "id": "mat",
-          "label": "Matrix(Nx3)",
+          "id": "vertices",
+          "label": "Vertices(Nx3)",
+          "type": "matrix"
+        },
+        {
+          "id": "colors",
+          "label": "Colors(Nx3)",
           "type": "matrix"
         }
       ],
@@ -946,6 +986,34 @@
           "id": "points",
           "label": "Points",
           "type": "custom"
+        }
+      ],
+      "properties": {}
+    },
+    {
+      "category": "Method",
+      "color": "#805ad5",
+      "description": "Split points into vertices and colors",
+      "id": "points_attributes",
+      "inputs": [
+        {
+          "customType": "points",
+          "id": "points",
+          "label": "Points",
+          "type": "custom"
+        }
+      ],
+      "name": "Points Attributes",
+      "outputs": [
+        {
+          "id": "vertices",
+          "label": "Vertices(Nx3)",
+          "type": "matrix"
+        },
+        {
+          "id": "colors",
+          "label": "Colors(Nx3)",
+          "type": "matrix"
         }
       ],
       "properties": {}

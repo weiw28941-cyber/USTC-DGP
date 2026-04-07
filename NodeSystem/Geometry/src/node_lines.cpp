@@ -111,20 +111,20 @@ bool node_lines::execute(const std::map<std::string, std::any> &inputs,
                typeid(std::vector<std::vector<double>>)) {
       const auto mat =
           std::any_cast<std::vector<std::vector<double>>>(pointsIt->second);
-      points.points.reserve(mat.size());
+      points.vertices.reserve(mat.size());
       for (const auto &row : mat) {
         if (row.size() != 3) {
           errorMessage = "Lines node error: points matrix must be N x 3";
           return false;
         }
-        points.points.push_back({row[0], row[1], row[2]});
+        points.vertices.push_back({row[0], row[1], row[2]});
       }
     } else {
       errorMessage =
           "Lines node error: input points must be PointCloud or N x 3 matrix";
       return false;
     }
-    if (points.points.empty()) {
+    if (points.vertices.empty()) {
       errorMessage = "Lines node error: points is empty";
       return false;
     }
@@ -142,7 +142,7 @@ bool node_lines::execute(const std::map<std::string, std::any> &inputs,
     }
 
     LineSet lines;
-    lines.points = points.points;
+    lines.points = points.vertices;
     lines.directed = (op == "directed");
     lines.segments.reserve(matrix.size());
 

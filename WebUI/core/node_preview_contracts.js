@@ -3,6 +3,7 @@ function inferPreviewSocketFromType(nodeType) {
     if (outputs.length === 0) return null;
     const ids = new Set(outputs.map((output) => output?.id).filter(Boolean));
     if (nodeType?.id === 'interaction_state') return null;
+    if (nodeType?.id === 'points_attributes' && ids.has('vertices')) return 'vertices';
     if (typeof nodeType?.previewSocket === 'string' && nodeType.previewSocket) {
         return nodeType.previewSocket;
     }

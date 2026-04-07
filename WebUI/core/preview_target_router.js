@@ -69,6 +69,9 @@ function addNodePreviewTarget(accumulator, node, socketId = null) {
     if (!accumulator.outputSockets[key].includes(resolvedSocketId)) {
         accumulator.outputSockets[key].push(resolvedSocketId);
     }
+    if (node?.type === 'points_attributes' && !accumulator.outputSockets[key].includes('colors')) {
+        accumulator.outputSockets[key].push('colors');
+    }
 }
 
 function finalizePreviewTargets(accumulator) {

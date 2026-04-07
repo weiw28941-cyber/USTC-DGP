@@ -1,4 +1,5 @@
 #include "node_points.h"
+#include <cstddef>
 #include <fstream>
 #include <memory>
 #include <sstream>
@@ -19,12 +20,16 @@ std::string node_points::getType() const { return "points"; }
 std::string node_points::getName() const { return "Points"; }
 std::string node_points::getCategory() const { return "Data"; }
 std::string node_points::getDescription() const {
-  return "Build point cloud from N x 3 matrix";
+  return "Build point cloud from vertices and optional colors";
 }
 
 std::vector<Socket> node_points::getInputs() const {
-  return {{"mat", "Matrix(Nx3)", DataType::MATRIX,
-           std::vector<std::vector<double>>{}}};
+  return {
+      {"vertices", "Vertices(Nx3)", DataType::MATRIX,
+       std::vector<std::vector<double>>{}},
+      {"colors", "Colors(Nx3)", DataType::MATRIX,
+       std::vector<std::vector<double>>{}},
+  };
 }
 
 std::vector<Socket> node_points::getOutputs() const {
@@ -46,27 +51,51 @@ bool node_points::execute(
     std::map<std::string, std::any> &outputs,
     const std::map<std::string, std::any> & /*properties*/) {
   try {
-    const auto it = inputs.find("mat");
-    if (it == inputs.end()) {
-      errorMessage = "Points node error: missing matrix input";
+    const auto verticesIt = inputs.find("vertices");
+    if (verticesIt == inputs.end()) {
+      errorMessage = "Points node error: missing vertices input";
       return false;
     }
-    const auto matrix =
-        NodeUtils::getValue<std::vector<std::vector<double>>>(it->second, {});
-    if (matrix.empty()) {
-      errorMessage = "Points node error: input matrix is empty";
+    const auto vertices = NodeUtils::getValue<std::vector<std::vector<double>>>(
+        verticesIt->second, {});
+    if (vertices.empty()) {
+      errorMessage = "Points node error: input vertices is empty";
       return false;
+    }
+    std::vector<std::vector<double>> colors;
+    const auto colorsIt = inputs.find("colors");
+    if (colorsIt != inputs.end()) {
+      colors = NodeUtils::getValue<std::vector<std::vector<double>>>(
+          colorsIt->second, {});
     }
 
     PointCloud pc;
-    pc.points.reserve(matrix.size());
-    for (size_t r = 0; r < matrix.size(); ++r) {
-      const auto &row = matrix[r];
+    pc.vertices.reserve(vertices.size());
+    for (size_t r = 0; r < vertices.size(); ++r) {
+      const auto &row = vertices[r];
       if (row.size() != 3) {
-        errorMessage = "Points node error: matrix must be N x 3";
+        errorMessage = "Points node error: vertices must be N x 3";
         return false;
       }
-      pc.points.push_back({row[0], row[1], row[2]});
+      pc.vertices.push_back({row[0], row[1], row[2]});
+    }
+    if (colors.empty()) {
+      pc.colors.assign(pc.vertices.size(), {1.0, 1.0, 1.0});
+    } else {
+      if (colors.size() != pc.vertices.size()) {
+        errorMessage = "Points node error: colors must have same rows as "
+                       "vertices";
+        return false;
+      }
+      pc.colors.reserve(colors.size());
+      for (size_t r = 0; r < colors.size(); ++r) {
+        const auto &row = colors[r];
+        if (row.size() != 3) {
+          errorMessage = "Points node error: colors must be N x 3";
+          return false;
+        }
+        pc.colors.push_back({row[0], row[1], row[2]});
+      }
     }
 
     outputs["points"] = std::make_shared<PointCloud>(std::move(pc));
@@ -154,13 +183,23 @@ bool node_loadpoints::execute(
       std::istringstream iss(line);
       double x = 0.0, y = 0.0, z = 0.0;
       if (!(iss >> x >> y >> z)) {
-        errorMessage = "Load Points node error: invalid point line";
+        errorMessage = "Load Points node error: invalid point line (expected "
+                       "at least x y z)";
         return false;
       }
-      pc.points.push_back({x, y, z});
+      pc.vertices.push_back({x, y, z});
+
+      double r = 1.0, g = 1.0, b = 1.0;
+      if (iss >> r >> g >> b) {
+        // Successfully read RGB
+        pc.colors.push_back({r, g, b});
+      } else {
+        // No RGB data, use default white color
+        pc.colors.push_back({1.0, 1.0, 1.0});
+      }
     }
 
-    if (pc.points.empty()) {
+    if (pc.vertices.empty()) {
       errorMessage = "Load Points node error: no points loaded";
       return false;
     }
@@ -252,8 +291,14 @@ bool node_writepoints::execute(
       return false;
     }
     file << "# Exported by NodeGraphProcessor\n";
-    for (const auto &p : pc->points) {
-      file << p[0] << " " << p[1] << " " << p[2] << "\n";
+    for (size_t i = 0; i < pc->vertices.size(); ++i) {
+      const auto &p = pc->vertices[i];
+      file << p[0] << " " << p[1] << " " << p[2];
+      if (i < pc->colors.size()) {
+        const auto &c = pc->colors[i];
+        file << " " << c[0] << " " << c[1] << " " << c[2];
+      }
+      file << "\n";
     }
     if (!file.good()) {
       errorMessage = "Write Points node error: write failed: " + path;
@@ -267,6 +312,83 @@ bool node_writepoints::execute(
   }
 }
 
+std::string node_points_attributes::getType() const {
+  return "points_attributes";
+}
+std::string node_points_attributes::getName() const {
+  return "Points Attributes";
+}
+std::string node_points_attributes::getCategory() const { return "Method"; }
+std::string node_points_attributes::getDescription() const {
+  return "Split points into vertices and colors";
+}
+
+std::vector<Socket> node_points_attributes::getInputs() const {
+  return {{"points", "Points", DataType::CUSTOM, PointCloud{}, "points"}};
+}
+
+std::vector<Socket> node_points_attributes::getOutputs() const {
+  return {
+      {"vertices", "Vertices(Nx3)", DataType::MATRIX,
+       std::vector<std::vector<double>>{}},
+      {"colors", "Colors(Nx3)", DataType::MATRIX,
+       std::vector<std::vector<double>>{}},
+  };
+}
+
+std::map<std::string, std::any> node_points_attributes::getProperties() const {
+  return {};
+}
+
+NodeSchema node_points_attributes::getSchema() const {
+  NodeSchema schema = NodeBase::getSchema();
+  schema.color = "#805ad5";
+  return schema;
+}
+
+bool node_points_attributes::execute(
+    const std::map<std::string, std::any> &inputs,
+    std::map<std::string, std::any> &outputs,
+    const std::map<std::string, std::any> & /*properties*/) {
+  try {
+    auto pointsIt = inputs.find("points");
+    if (pointsIt == inputs.end()) {
+      errorMessage =
+          "Points Attributes node error: input points is missing or invalid";
+      return false;
+    }
+    const PointCloud *pc = NodeUtils::getValuePtr<PointCloud>(pointsIt->second);
+    if (!pc) {
+      errorMessage =
+          "Points Attributes node error: input points is missing or invalid";
+      return false;
+    }
+
+    std::vector<std::vector<double>> vertices;
+    vertices.reserve(pc->vertices.size());
+    for (const auto &p : pc->vertices) {
+      vertices.push_back({p[0], p[1], p[2]});
+    }
+
+    std::vector<std::vector<double>> colors;
+    if (pc->colors.size() == pc->vertices.size()) {
+      colors.reserve(pc->colors.size());
+      for (const auto &c : pc->colors) {
+        colors.push_back({c[0], c[1], c[2]});
+      }
+    } else {
+      colors.assign(pc->vertices.size(), {1.0, 1.0, 1.0});
+    }
+
+    outputs["vertices"] = std::move(vertices);
+    outputs["colors"] = std::move(colors);
+    return true;
+  } catch (const std::exception &e) {
+    errorMessage = std::string("Points Attributes node error: ") + e.what();
+    return false;
+  }
+}
+
 namespace {
 struct points_any_to_json_registrar {
   points_any_to_json_registrar() {
@@ -274,11 +396,15 @@ struct points_any_to_json_registrar {
         [](const std::any &value, json &out) {
           const auto &pc = std::any_cast<const PointCloud &>(value);
           out = json::object();
-          out["points"] = json::array();
-          for (const auto &p : pc.points) {
-            out["points"].push_back({p[0], p[1], p[2]});
+          out["vertices"] = json::array();
+          for (const auto &p : pc.vertices) {
+            out["vertices"].push_back({p[0], p[1], p[2]});
           }
-          out["count"] = pc.points.size();
+          out["count"] = pc.vertices.size();
+          out["colors"] = json::array();
+          for (const auto &c : pc.colors) {
+            out["colors"].push_back({c[0], c[1], c[2]});
+          }
           return true;
         });
     NodeUtils::registerAnyToJson<std::shared_ptr<PointCloud>>(
@@ -287,16 +413,21 @@ struct points_any_to_json_registrar {
               std::any_cast<const std::shared_ptr<PointCloud> &>(value);
           if (!pcPtr) {
             out = json::object();
-            out["points"] = json::array();
+            out["vertices"] = json::array();
             out["count"] = 0;
+            out["colors"] = json::array();
             return true;
           }
           out = json::object();
-          out["points"] = json::array();
-          for (const auto &p : pcPtr->points) {
-            out["points"].push_back({p[0], p[1], p[2]});
+          out["vertices"] = json::array();
+          for (const auto &p : pcPtr->vertices) {
+            out["vertices"].push_back({p[0], p[1], p[2]});
           }
-          out["count"] = pcPtr->points.size();
+          out["count"] = pcPtr->vertices.size();
+          out["colors"] = json::array();
+          for (const auto &c : pcPtr->colors) {
+            out["colors"].push_back({c[0], c[1], c[2]});
+          }
           return true;
         });
   }
@@ -306,4 +437,5 @@ points_any_to_json_registrar points_any_to_json_registrar_instance;
 NodeRegistrar<node_points> node_points_registrar;
 NodeRegistrar<node_loadpoints> node_loadpoints_registrar;
 NodeRegistrar<node_writepoints> node_writepoints_registrar;
+NodeRegistrar<node_points_attributes> node_points_attributes_registrar;
 } // namespace
