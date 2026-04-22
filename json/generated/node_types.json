@@ -1,6 +1,29 @@
 {
   "nodeTypes": [
     {
+      "category": "Geometry",
+      "color": "#805ad5",
+      "description": "Compute ARAP parameters for a mesh",
+      "id": "arap_para",
+      "inputs": [
+        {
+          "customType": "mesh",
+          "id": "mesh",
+          "label": "Mesh",
+          "type": "custom"
+        }
+      ],
+      "name": "ARAP Para",
+      "outputs": [
+        {
+          "id": "uv",
+          "label": "Matrix",
+          "type": "matrix"
+        }
+      ],
+      "properties": {}
+    },
+    {
       "category": "Data",
       "color": "#3182ce",
       "description": "Union of colored points/lines/faces and textured mesh",

@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 2,
+  "meta": {
+    "savedAt": "2026-04-15T15:31:30.455Z",
+    "nodeIdCounter": 21
+  },
+  "view": {
+    "offsetX": 182.87487112370547,
+    "offsetY": 90.10530188198061,
+    "scale": 0.520515397688624
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "type": "load_mesh",
+      "x": 300,
+      "y": 100,
+      "width": 180,
+      "height": 120,
+      "properties": {
+        "path": ""
+      },
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 1,
+      "type": "string",
+      "x": -200,
+      "y": -50,
+      "width": 180,
+      "height": 120,
+      "properties": {
+        "text": "C:\\Users\\lym29\\Documents\\GitHub\\USTC-DGP\\Homework\\hw3\\bunny.obj"
+      },
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "text": "C:\\Users\\lym29\\Documents\\GitHub\\USTC-DGP\\Homework\\hw3\\bunny.obj",
+      "values": null
+    },
+    {
+      "id": 8,
+      "type": "mesh_attributes",
+      "x": 650,
+      "y": -100,
+      "width": 180,
+      "height": 260,
+      "properties": {},
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 9,
+      "type": "mesh",
+      "x": 1200,
+      "y": -100,
+      "width": 180,
+      "height": 260,
+      "properties": {
+        "operation": "solid",
+        "size": ""
+      },
+      "value": 0,
+      "operation": "solid",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 11,
+      "type": "geometry",
+      "x": 1500,
+      "y": -100,
+      "width": 180,
+      "height": 220,
+      "properties": {
+        "linesCount": "",
+        "meshCount": "",
+        "pointsCount": "",
+        "values": [
+          1,
+          1,
+          1
+        ]
+      },
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 12,
+      "type": "geometry_viewer",
+      "x": 1750,
+      "y": 150,
+      "width": 180,
+      "height": 180,
+      "properties": {
+        "intensity": "",
+        "interaction_event": {
+          "channel": "viewer",
+          "phase": "update",
+          "sourceNodeId": 12,
+          "targetNodeId": 12,
+          "version": 1776267079090,
+          "timestampMs": 1776267079092,
+          "source": "webui",
+          "payload": {
+            "sourceViewerNodeId": 12,
+            "action": "viewer_object_color_mode",
+            "value": {
+              "target": "geom_c095bf33eeb0ce64",
+              "mode": "texture"
+            }
+          }
+        },
+        "light": ""
+      },
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": null
+    },
+    {
+      "id": 20,
+      "type": "arap_para",
+      "x": 800,
+      "y": 250,
+      "width": 180,
+      "height": 120,
+      "properties": {},
+      "value": 0,
+      "operation": "add",
+      "label": "Result",
+      "values": null
+    }
+  ],
+  "groups": [],
+  "comments": [],
+  "connections": [
+    {
+      "from_node": 1,
+      "from_socket": "text",
+      "to_node": 0,
+      "to_socket": "path"
+    },
+    {
+      "from_node": 0,
+      "from_socket": "mesh",
+      "to_node": 8,
+      "to_socket": "mesh"
+    },
+    {
+      "from_node": 8,
+      "from_socket": "vertices",
+      "to_node": 9,
+      "to_socket": "vertices"
+    },
+    {
+      "from_node": 8,
+      "from_socket": "indices",
+      "to_node": 9,
+      "to_socket": "indices"
+    },
+    {
+      "from_node": 8,
+      "from_socket": "texture",
+      "to_node": 9,
+      "to_socket": "texture"
+    },
+    {
+      "from_node": 9,
+      "from_socket": "mesh",
+      "to_node": 11,
+      "to_socket": "mesh"
+    },
+    {
+      "from_node": 11,
+      "from_socket": "geometry",
+      "to_node": 12,
+      "to_socket": "geometry"
+    },
+    {
+      "from_node": 0,
+      "from_socket": "mesh",
+      "to_node": 20,
+      "to_socket": "mesh"
+    },
+    {
+      "from_node": 20,
+      "from_socket": "uv",
+      "to_node": 9,
+      "to_socket": "uv"
+    }
+  ]
+}
